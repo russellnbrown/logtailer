@@ -88,7 +88,7 @@ namespace LogTailer
             }
  
             // If a previous style was selected, reload it. 
-            Logging.Set(Properties.Settings.Default.lastLogStyle);            
+            Logging.Set(Tailer.Properties.Settings.Default.lastLogStyle);            
 
             // Set a handler for window closing ( stops threads etc )
             Closing += OnWindowClosing;
@@ -114,7 +114,7 @@ namespace LogTailer
             view.Filter = levelFilter;
 
             // set the text reg exp filter if set
-            textFilterTB.Text = Properties.Settings.Default.lastTextFilter;
+            textFilterTB.Text = Tailer.Properties.Settings.Default.lastTextFilter;
             SetTextFilter();
 
 
@@ -222,7 +222,7 @@ namespace LogTailer
                 }
                 else // otherwise it is a local file. 
                 {  
-                    reader = new Reader( Properties.Settings.Default.lastFile); // RemoteReader();// DReader();// Reader(Properties.Settings.Default.lastFile);
+                    reader = new Reader(Tailer.Properties.Settings.Default.lastFile); // RemoteReader();// DReader();// Reader(Properties.Settings.Default.lastFile);
                     SetFileText();
 
                 }
@@ -287,8 +287,8 @@ namespace LogTailer
             levelCombo.SelectedItem = Logging.Get().levels[0];
             currentLevel = (LogLevel)levelCombo.SelectedItem;
             // save new selection to properties
-            Properties.Settings.Default.lastLogStyle = Logging.Get().Name;
-            Properties.Settings.Default.Save();
+            Tailer.Properties.Settings.Default.lastLogStyle = Logging.Get().Name;
+            Tailer.Properties.Settings.Default.Save();
             // reset filter to new values & recreate the GUI from scratch
             filterChanged();
             lines.Clear();
@@ -299,9 +299,9 @@ namespace LogTailer
         // and recreate the GUI with new filter
         private void SetTextFilter()
         {
-            if (Properties.Settings.Default.lastTextFilter != null && Properties.Settings.Default.lastTextFilter.Length > 0)
+            if (Tailer.Properties.Settings.Default.lastTextFilter != null && Tailer.Properties.Settings.Default.lastTextFilter.Length > 0)
             {
-                rex = new Regex(Properties.Settings.Default.lastTextFilter);
+                rex = new Regex(Tailer.Properties.Settings.Default.lastTextFilter);
             }
             else
                 rex = null;
@@ -317,8 +317,8 @@ namespace LogTailer
                 // put text filter textbox back to normal colour
                 textFilterTB.Foreground = System.Windows.Media.Brushes.Black;
                 // save new value
-                Properties.Settings.Default.lastTextFilter = textFilterTB.GetLineText(0);
-                Properties.Settings.Default.Save();
+                Tailer.Properties.Settings.Default.lastTextFilter = textFilterTB.GetLineText(0);
+                Tailer.Properties.Settings.Default.Save();
                 // and get line filter to use new text filter
                 SetTextFilter();
             }

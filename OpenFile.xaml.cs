@@ -75,11 +75,11 @@ namespace LogTailer
         {
             Result = null;
             gi = new FileSelection();
-            gi.SSHKey = Properties.Settings.Default.lastSSHKey;
-            gi.RemoteUser = Properties.Settings.Default.lastUser;
-            gi.RemoteHost = Properties.Settings.Default.lastHost;
-            gi.RemoteFile = Properties.Settings.Default.lastRemoteFile;
-            gi.LocalFile = Properties.Settings.Default.lastFile;
+            gi.SSHKey = Tailer.Properties.Settings.Default.lastSSHKey;
+            gi.RemoteUser = Tailer.Properties.Settings.Default.lastUser;
+            gi.RemoteHost = Tailer.Properties.Settings.Default.lastHost;
+            gi.RemoteFile = Tailer.Properties.Settings.Default.lastRemoteFile;
+            gi.LocalFile = Tailer.Properties.Settings.Default.lastFile;
             DataContext = gi;
             InitializeComponent();
         }
@@ -101,12 +101,12 @@ namespace LogTailer
         private void saveGI()
         {
             MoveFocus();// force update of source - lostfocus problem
-            Properties.Settings.Default.lastSSHKey = gi.SSHKey;
-            Properties.Settings.Default.lastUser = gi.RemoteUser;
-            Properties.Settings.Default.lastHost = gi.RemoteHost;
-            Properties.Settings.Default.lastRemoteFile = gi.RemoteFile;
-            Properties.Settings.Default.lastFile = gi.LocalFile;
-            Properties.Settings.Default.Save();
+            Tailer.Properties.Settings.Default.lastSSHKey = gi.SSHKey;
+            Tailer.Properties.Settings.Default.lastUser = gi.RemoteUser;
+            Tailer.Properties.Settings.Default.lastHost = gi.RemoteHost;
+            Tailer.Properties.Settings.Default.lastRemoteFile = gi.RemoteFile;
+            Tailer.Properties.Settings.Default.lastFile = gi.LocalFile;
+            Tailer.Properties.Settings.Default.Save();
         }
 
         // SelBtn_Click. User is selecting a ssh ppk key file
