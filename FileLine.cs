@@ -23,7 +23,7 @@ namespace LogTailer
 {
     // FileLine
     //
-    // Used to store iformation about one line in the logfile.
+    // Used to store information about one line in the logfile.
     // 
     // Provides acessors for logtailerwindow 
     // Provides a parser to return a FileLine if it is valid.

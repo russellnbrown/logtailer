@@ -47,12 +47,14 @@ namespace LogTailer
             private string remoteFile;
             private string remoteUser;
             private string remoteHost;
+            private string remotePass;
             private string localFile;
 
             public string SSHKey { get { return sSHKey; } set { sSHKey = value;  OnPropertyChanged("SSHKey"); } }
             public string RemoteFile { get { return remoteFile; } set { remoteFile = value; OnPropertyChanged("RemoteFile"); } }
             public string RemoteUser { get { return remoteUser; } set { remoteUser = value; OnPropertyChanged("RemoteUser"); } }
             public string RemoteHost { get { return remoteHost; } set { remoteHost = value; OnPropertyChanged("RemoteHost"); } }
+            public string RemotePass { get { return remotePass; } set { remotePass = value; OnPropertyChanged("RemotePass"); } }
             public string LocalFile { get { return localFile; } set { localFile = value; OnPropertyChanged("LocalFile"); } }
             public Boolean useRemote = false;
 
@@ -159,8 +161,19 @@ namespace LogTailer
                     MessageBox.Show("SSH Key file dosnt exist", "Connection failed");
                     return;
                 }
-                PrivateKeyFile pkf = new PrivateKeyFile(gi.SSHKey);
-                SshClient ssh = new SshClient(gi.RemoteHost, gi.RemoteUser, pkf);
+
+                ConnectionInfo conn =
+                    new ConnectionInfo(gi.RemoteHost, 22, gi.RemoteUser, new AuthenticationMethod[]
+                        {
+           // new PasswordAuthenticationMethod(gi.RemoteUser, "adanoids"),
+            new PrivateKeyAuthenticationMethod(gi.RemoteUser, new PrivateKeyFile[]
+                   { new PrivateKeyFile(gi.SSHKey, "") }),
+                        });
+
+
+
+                //PrivateKeyFile pkf = new PrivateKeyFile(gi.SSHKey);
+                SshClient ssh = new SshClient(conn);// "192.168.20.22", "russ", "adanoids");// (gi.RemoteHost, gi.RemoteUser, pkf);
                 ssh.Connect();
                 ssh.Disconnect();
                 MessageBox.Show("Connection OK");

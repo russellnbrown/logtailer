@@ -29,10 +29,10 @@ namespace LogTailer
 
         // tailing a remote file is a tad more complicated as we cant open the file directly
         // instead we use a remote command 'tail -1000f <remote file name> and read the output
-        // of that command. This is obviously assumed we are talking to a unix system. 
+        // of that command. This is obviously assums we are talking to a unix system. 
         // TBD  - put commands into config file & make it more generic
 
-        // To worklout when a file has been re-opened we also need to be able to see the file size
+        // To workout when a file has been re-opened we also need to be able to see the file size
         // as if this happens the tail command keeps running but returns no more data. to do this we
         // need to run a second command, ls -l <remote file name>
 

@@ -35,8 +35,6 @@ namespace LogTailer
         protected bool running = true;                         // when un-set caused reading threds to stop
         protected int lineCount = 1;                           // number of lines in file
 
-
-
         // acessors for above
         public string File { get { return fileName; } }
         public string State { get { return state; } }

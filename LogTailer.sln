@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogTailer", "LogTailer.csproj", "{12CD22CA-9349-4851-A6F2-19C8124937B4}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LogGenerator", "..\LogGenerator\LogGenerator.pyproj", "{E4CAAF6F-2049-4598-9D76-652497106D38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,12 @@ Global
 		{12CD22CA-9349-4851-A6F2-19C8124937B4}.Release|x64.Build.0 = Release|Any CPU
 		{12CD22CA-9349-4851-A6F2-19C8124937B4}.Release|x86.ActiveCfg = Release|Any CPU
 		{12CD22CA-9349-4851-A6F2-19C8124937B4}.Release|x86.Build.0 = Release|Any CPU
+		{E4CAAF6F-2049-4598-9D76-652497106D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4CAAF6F-2049-4598-9D76-652497106D38}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E4CAAF6F-2049-4598-9D76-652497106D38}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E4CAAF6F-2049-4598-9D76-652497106D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4CAAF6F-2049-4598-9D76-652497106D38}.Release|x64.ActiveCfg = Release|Any CPU
+		{E4CAAF6F-2049-4598-9D76-652497106D38}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

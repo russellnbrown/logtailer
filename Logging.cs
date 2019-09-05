@@ -26,6 +26,9 @@ namespace LogTailer
     //   <add key = "Log4" value="10,100,DEBUG,Debug,SlateGray,INFO,Info,Black,WARN,Warn,Orange,ERROR,Error,Red" />
     //   <add key = "Custom" value="34,41,Debug,Debug,Gray,Log,Log,Blue,Stat,Stat,Orange,Error,Error,Red" />
     //  </LEVELFORMATS>
+    // key - appears on the log type pulldown
+    // value - start/stop character locations where log level can be found
+    //         menu pulldown, search string , colour ( repeats for each level )
     public class Logging
     {
         // singleton to access current log style from anywhere
