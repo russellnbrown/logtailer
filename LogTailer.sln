@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogTailer", "LogTailer.csproj", "{12CD22CA-9349-4851-A6F2-19C8124937B4}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LogGenerator", "..\LogGenerator\LogGenerator.pyproj", "{E4CAAF6F-2049-4598-9D76-652497106D38}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LogGenerator", "LogGenerator\LogGenerator.pyproj", "{E4CAAF6F-2049-4598-9D76-652497106D38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
