@@ -106,5 +106,17 @@ namespace Tailer.Properties {
                 this["lastRemoteFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastPass {
+            get {
+                return ((string)(this["lastPass"]));
+            }
+            set {
+                this["lastPass"] = value;
+            }
+        }
     }
 }

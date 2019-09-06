@@ -23,22 +23,19 @@
                     <Label Content="Remote"   HorizontalAlignment="Stretch"/>
                 </TabItem.Header>
                 <Canvas>
-                    <GroupBox Header="SSH Key File (specify key and or password)" Height="54" Canvas.Left="10" Canvas.Top="5" Width="750" >
-                    </GroupBox>
-                    <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="539" Canvas.Top="26"/>
+                    <GroupBox Header="SSH Key File (specify key and or password)" Height="54" Canvas.Left="10" Canvas.Top="5" Width="750" />
+                    <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="539" Canvas.Top="26" />
                     <TextBox HorizontalAlignment="Left" Height="26" TextWrapping="Wrap" Text="{Binding RemotePass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="61" Canvas.Left="606" Canvas.Top="26" RenderTransformOrigin="1.665,-2.572"/>
-                    <Label Height="23" Content="File:" Width="32" Canvas.Left="233" Canvas.Top="28" />
-                    <TextBox Height="23" TextWrapping="Wrap" IsReadOnly="True" Text="{Binding SSHKey, Mode=OneWay }" Width="196" Canvas.Left="270" Canvas.Top="28"/>
+                    <Label Height="23" Content="File:" Width="32" Canvas.Left="238" Canvas.Top="28" />
+                    <TextBox Height="23" TextWrapping="Wrap" Text="{Binding SSHKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="196" Canvas.Left="270" Canvas.Top="28"/>
                     <Button Name="SelBtn" Click="SelBtn_Click"  Content="Select" Height="23" Width="64" Canvas.Left="471" Canvas.Top="28" RenderTransformOrigin="-0.624,0.563" />
-
                     <GroupBox Header="Remote File" Height="54" Canvas.Left="10" Canvas.Top="60" Width="750"/>
-
                     <Label Height="23" Content="File:" Width="100" Canvas.Left="10" Canvas.Top="85"/>
                     <TextBox Height="23" TextWrapping="Wrap" Text="{Binding RemoteFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="708" Canvas.Left="44" Canvas.Top="85"/>
                     <Label Height="23" Content="Host:" Canvas.Left="9" Canvas.Top="28"/>
-                    <TextBox Height="23" TextWrapping="Wrap" Text="{Binding RemoteHost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="66" Canvas.Left="44" Canvas.Top="28"/>
-                    <Label Height="23" Content="User:"  Canvas.Left="115" Canvas.Top="28"/>
-                    <TextBox Height="23" TextWrapping="Wrap" Text="{Binding RemoteUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="71" Canvas.Left="151" Canvas.Top="28"/>
+                    <TextBox Height="23" TextWrapping="Wrap" Text="{Binding RemoteHost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="87" Canvas.Left="44" Canvas.Top="28"/>
+                    <Label Height="23" Content="User:"  Canvas.Left="131" Canvas.Top="28"/>
+                    <TextBox Height="23" TextWrapping="Wrap" Text="{Binding RemoteUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="71" Canvas.Left="167" Canvas.Top="28"/>
                     <Button Content="Test" Height="23" Width="64" Canvas.Left="688" Canvas.Top="28" RenderTransformOrigin="-0.624,0.563" Name="TestBtn" Click="TestBtn_Click" />
                     <Button Name="OKRemoteBtn" Content="OK" Height="23" Width="64" Canvas.Left="688" Canvas.Top="125" Click="OKRemoteBtn_Click"/>
                 </Canvas>

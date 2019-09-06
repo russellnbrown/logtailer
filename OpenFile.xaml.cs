@@ -22,6 +22,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using Renci.SshNet;
 using System.IO;
+using System.Collections.Generic;
 
 namespace LogTailer
 {
@@ -82,6 +83,7 @@ namespace LogTailer
             gi.RemoteHost = Tailer.Properties.Settings.Default.lastHost;
             gi.RemoteFile = Tailer.Properties.Settings.Default.lastRemoteFile;
             gi.LocalFile = Tailer.Properties.Settings.Default.lastFile;
+            gi.RemotePass = Tailer.Properties.Settings.Default.lastPass;
             DataContext = gi;
             InitializeComponent();
         }
@@ -108,6 +110,7 @@ namespace LogTailer
             Tailer.Properties.Settings.Default.lastHost = gi.RemoteHost;
             Tailer.Properties.Settings.Default.lastRemoteFile = gi.RemoteFile;
             Tailer.Properties.Settings.Default.lastFile = gi.LocalFile;
+            Tailer.Properties.Settings.Default.lastPass = gi.RemotePass;
             Tailer.Properties.Settings.Default.Save();
         }
 
@@ -156,24 +159,29 @@ namespace LogTailer
         {
             try
             {
-                if ( !File.Exists(gi.SSHKey) )
+                if (gi.SSHKey != null && gi.SSHKey.Length> 0 && !File.Exists(gi.SSHKey) )
                 {
                     MessageBox.Show("SSH Key file dosnt exist", "Connection failed");
                     return;
                 }
 
-                ConnectionInfo conn =
-                    new ConnectionInfo(gi.RemoteHost, 22, gi.RemoteUser, new AuthenticationMethod[]
-                        {
-           // new PasswordAuthenticationMethod(gi.RemoteUser, "adanoids"),
-            new PrivateKeyAuthenticationMethod(gi.RemoteUser, new PrivateKeyFile[]
-                   { new PrivateKeyFile(gi.SSHKey, "") }),
-                        });
+                List<AuthenticationMethod> paml = new List<AuthenticationMethod>();
+                if (gi.RemotePass != null && gi.RemotePass.Length > 0)
+                    paml.Add(new PasswordAuthenticationMethod(gi.RemoteUser, gi.RemotePass));
+                if (gi.SSHKey != null && gi.SSHKey.Length > 0)
+                {
+                    paml.Add(new PrivateKeyAuthenticationMethod(gi.RemoteUser, new PrivateKeyFile[]  { new PrivateKeyFile(gi.SSHKey, "") }));
+                }
 
+                if ( paml.Count < 1 )
+                {
+                    MessageBox.Show("No remote access methods defines", "Can't test", MessageBoxButton.OK);
+                    return;
+                }
 
-
-                //PrivateKeyFile pkf = new PrivateKeyFile(gi.SSHKey);
-                SshClient ssh = new SshClient(conn);// "192.168.20.22", "russ", "adanoids");// (gi.RemoteHost, gi.RemoteUser, pkf);
+                ConnectionInfo conn = new ConnectionInfo(gi.RemoteHost, 22, gi.RemoteUser, paml.ToArray());
+ 
+                SshClient ssh = new SshClient(conn);
                 ssh.Connect();
                 ssh.Disconnect();
                 MessageBox.Show("Connection OK");

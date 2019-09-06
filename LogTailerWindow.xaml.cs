@@ -40,6 +40,10 @@ namespace LogTailer
         // allows adding of a range. See ObservableRangeCollection.cs for credits.
         public ObservableRangeCollection<FileLine> lines = new ObservableRangeCollection<FileLine>();
 
+        // title fro main window
+        public String Banner = "Log Viewer";
+        public String Version = "1.0";
+
         // tailing. if true, keep the current line at the bottom when an update arrives
         public bool tailing = true;
 
@@ -172,12 +176,12 @@ namespace LogTailer
             
         }
 
-        // OnWindowClosing. Catch the close event & stop reader thread
+        // OnWindowClosing. Catch the close event & stop reader threads and shutdown
         private void OnWindowClosing(object sender, CancelEventArgs e)
         {
             if ( reader != null )
                 reader.Close();
-            Environment.Exit(0);
+            Application.Current.Shutdown();
         }
 
         // scrollCB_*. Set tailing to the state of the check
@@ -217,7 +221,7 @@ namespace LogTailer
                 // If a remote file, create a remote reader with specified key file/user
                 if (s.Result.useRemote)
                 {
-                    reader = new RemoteReader( s.Result.RemoteHost,s.Result.RemoteUser, s.Result.RemoteFile, s.Result.SSHKey);
+                    reader = new RemoteReader( s.Result.RemoteHost,s.Result.RemoteUser, s.Result.RemoteFile, s.Result.SSHKey, s.Result.RemotePass);
                     SetFileText(s.Result.RemoteFile,s.Result.RemoteHost);
                 }
                 else // otherwise it is a local file. 
@@ -228,7 +232,7 @@ namespace LogTailer
                 }
 
                 // Change title to indicate new file
-                this.Title = "LogTailer " + StateMessage;
+                this.Title = Banner + " " + Version + " " + StateMessage;
 
                 return;
             }

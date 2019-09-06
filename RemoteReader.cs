@@ -17,6 +17,7 @@
 
 using Renci.SshNet;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
@@ -53,8 +54,9 @@ namespace LogTailer
         private SshClient ssh;
         private IAsyncResult asynch;
         private String keyFilePath;
-        private String host;
-        private String user;
+        private String host="";
+        private String user="";
+        private String pass="";
 
         // private AutoResetEvent connected;
         // tailing is flag to stop tail thread only
@@ -64,12 +66,13 @@ namespace LogTailer
 
         // RemoteReader. save connection settings and read commands from config. 
         // then start the size thread. tail thread will be started when size thread is up
-        public RemoteReader(String host, String user, String path, String key)
+        public RemoteReader(String host, String user, String path, String key, String pass)
         {
             fileName = path;
             keyFilePath = key;
             this.host = host;
             this.user = user;
+            this.pass = pass;
             state = "State";
             stateAlt = "AltState";
            // connected = new AutoResetEvent(false);
@@ -181,8 +184,24 @@ namespace LogTailer
             try
             {
                 Console.WriteLine("Connecting ....");
-                PrivateKeyFile pkf = new PrivateKeyFile(keyFilePath);
-                ssh = new SshClient(host, user, pkf);
+
+
+                List<AuthenticationMethod> paml = new List<AuthenticationMethod>();
+                if (pass != null && pass.Length > 0)
+                    paml.Add(new PasswordAuthenticationMethod(user, pass));
+                if (keyFilePath != null && keyFilePath.Length > 0)
+                    paml.Add(new PrivateKeyAuthenticationMethod(user, new PrivateKeyFile[] { new PrivateKeyFile(keyFilePath, "") }));
+
+                if (paml.Count < 1)
+                {
+                    running = false;
+                    EnqueueLine("No remote access methods defines", true);
+                    return false;
+                }
+
+                ConnectionInfo conn = new ConnectionInfo(host, 22, user, paml.ToArray());
+
+                ssh = new SshClient(conn);
                 ssh.Connect();
             }
             catch (Exception e)
@@ -272,7 +291,10 @@ namespace LogTailer
                             lastLength = length;
                         }
                     }
-                    System.Threading.Thread.Sleep(2000);
+                    // Wait a couple of seconds before re-testing but do it in a loop so we can 
+                    // check running state at the same time
+                    for(int d=0; d<200 && running; d++)
+                        System.Threading.Thread.Sleep(100);
                 }
 
             }
